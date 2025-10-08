@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPhone Quoted Generator</title>
+  <style>
+    body {
+      background: #000;
+      color: #eee;
+      font-family: "Poppins", Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.3rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #1e90ff, #00aaff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px #0077ff;
+    }
+    .container {
+      background: rgba(25, 25, 25, 0.95);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,119,255,0.3);
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: 2px solid #1e90ff;
+      outline: none;
+      font-size: 1rem;
+      background: #111;
+      color: #eee;
+      transition: 0.3s;
+      box-sizing: border-box;
+    }
+    input:focus {
+      border-color: #00aaff;
+      box-shadow: 0 0 12px #00aaff88;
+    }
+    button {
+      background: linear-gradient(90deg, #1e90ff, #00aaff);
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #111;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 0 auto;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 18px #1e90ff66;
+    }
+    .result {
+      margin-top: 20px;
+      min-height: 120px;
+    }
+    .result img {
+      max-width: 100%;
+      border-radius: 15px;
+      border: 2px solid #1e90ff;
+      margin-top: 15px;
+      box-shadow: 0 0 20px rgba(30,144,255,0.3);
+    }
+    .loader {
+      border: 4px solid #333;
+      border-top: 4px solid #1e90ff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .download-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #00aaff, #1e90ff);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .download-btn:hover {
+      box-shadow: 0 0 15px #00aaffaa;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>iPhone Quoted Generator</h1>
+  <div class="container">
+    <input type="text" id="message" placeholder="Tulis kata-kata kamu... ✨">
+    <button onclick="generateImage()">🚀 Kirim</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function generateImage() {
+      const message = document.getElementById("message").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      if (!message) {
+        alert("Harap masukkan teks terlebih dahulu!");
+        return;
+      }
+
+      resultDiv.innerHTML = '<div class="loader"></div><p>Sedang memproses...</p>';
+
+      const apiUrl = `https://brat.siputzx.my.id/iphone-quoted?time=00%3A01&messageText=${encodeURIComponent(message)}&carrierName=TELKOMSEL&batteryPercentage=90&signalStrength=4&emojiStyle=apple`;
+
+      setTimeout(() => {
+        resultDiv.innerHTML = `
+          <p>Hasil:</p>
+          <img src="${apiUrl}" alt="Generated Image">
+          <br>
+          <a class="download-btn" href="/gg/download?url=${encodeURIComponent(apiUrl)}">⬇️ Download</a>
+        `;
+      }, 800);
+    }
+  </script>
+</body>
+</html>
